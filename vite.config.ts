@@ -21,6 +21,14 @@ export default defineConfig({
     })
   ],
   server:{
-    port:8080
+    port:8080,
+/*     proxy:{
+       '/tiles': {
+            target: 'http://ecn.t0.tiles.virtualearth.net',
+            changeOrigin: true,
+            autoRewrite: true,
+            rewrite: (path) => path.replace(/^\/tiles/, '')
+        }
+    } */
   }
 })

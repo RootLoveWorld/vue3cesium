@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       cesium:
-        specifier: ^1.113.0
+        specifier: ^1.132.0
         version: 1.132.0
       vue:
         specifier: ^3.5.18
