@@ -1,0 +1,19 @@
+# Sample Image Placeholder
+
+This is a placeholder for the facility.png image file.
+
+To add the actual image:
+1. Download or create a PNG image file
+2. Rename it to 'facility.png'  
+3. Replace this placeholder file
+
+Recommended image specifications:
+- Format: PNG (for transparency support)
+- Size: 32x32 to 128x128 pixels for icons
+- Transparent background recommended for clean billboards
+
+Free icon sources:
+- Material Design Icons
+- Font Awesome
+- Feather Icons
+- Heroicons

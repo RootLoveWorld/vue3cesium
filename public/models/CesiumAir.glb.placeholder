@@ -1,0 +1,19 @@
+# Sample GLB Model Placeholder
+
+This is a placeholder for the CesiumAir.glb model file.
+
+To add the actual GLB model:
+1. Download a GLB model file (e.g., from Cesium ion or Sketchfab)
+2. Rename it to 'CesiumAir.glb'
+3. Replace this placeholder file
+
+Common free GLB models you can use:
+- Cesium Air (aircraft model)
+- Simple car models
+- Building models
+- Character models
+
+Download sources:
+- https://cesium.com/platform/cesium-ion/ (free models available)
+- https://sketchfab.com/features/gltf (many free models)
+- https://github.com/KhronosGroup/glTF-Sample-Models
