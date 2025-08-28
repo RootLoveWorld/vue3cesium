@@ -3,7 +3,7 @@ import {onMounted, ref } from "vue";
 import "cesium/Build/Cesium/Widgets/widgets.css";
 
 
-import { Ion, Terrain, Viewer, Cartesian3, Math as CesiumMath, Color, PolygonHierarchy, Rectangle } from "cesium";
+import { ParticleSystem,CircleEmitter,Ion,ParticleBurst, Terrain, Viewer, Cartographic,Cartesian3, ScreenSpaceEventType,Math as CesiumMath,ScreenSpaceEventHandler, Color, PolygonHierarchy, Rectangle,LabelStyle,VerticalOrigin ,Cartesian2 ,JulianDate} from "cesium";
 
 const container = ref<HTMLDivElement | null>(null)
 
@@ -16,10 +16,16 @@ onMounted(  ()=>{
 
     const bjPosition = Cartesian3.fromDegrees(116.39, 39.9)   // 北京
 
-    const entity = cesiumViewer.entities.add({
+    const pointEntity = cesiumViewer.entities.add({
         position : bjPosition,
         point:{pixelSize : 20,color:Color.RED},
-        label:{text:'Hello Beijing..'}
+        label:{
+            text:'BeiJing',
+            style: LabelStyle.FILL_AND_OUTLINE,
+            outlineWidth: 2,
+            verticalOrigin: VerticalOrigin.BOTTOM,
+            pixelOffset: new Cartesian2(0, -9)
+        }
     })
 
     // 绘制折线
@@ -74,7 +80,47 @@ onMounted(  ()=>{
     cesiumViewer.camera.flyTo({
         destination: Rectangle.fromDegrees(115.0, 39.0, 119.0, 41.0)
     });
-    
+
+
+    // 创建一个粒子系统
+    const particleSystem = cesiumViewer.scene.primitives.add(new ParticleSystem({
+      //  image: './path/to/your/particle-image.png', // 粒子纹理
+        startColor: Color.WHITE.withAlpha(0.7),
+        endColor: Color.WHITE.withAlpha(0.0),
+        startScale: 1.0,
+        endScale: 5.0,
+        particleLife: 1.0,
+        speed: 5.0,
+        emitter: new CircleEmitter(0.5), // 圆形发射器
+       // emitterLocation: Cartesian3.fromDegrees(116.39, 39.9, 100),
+        bursts: [
+            new ParticleBurst({ time: 5.0, minimum: 10, maximum: 100 }),
+            new ParticleBurst({ time: 10.0, minimum: 50, maximum: 200 })
+        ],
+        lifetime: 16.0
+    }));
+
+
+
+
+    // 屏幕空间事件处理（例如鼠标移动）
+    const handler = new ScreenSpaceEventHandler(cesiumViewer.scene.canvas);
+    handler.setInputAction(function(movement) {
+        const position = cesiumViewer.scene.pickPosition(movement.endPosition);
+        if (position) {
+            const cartographic = Cartographic.fromCartesian(position);
+            const longitude = CesiumMath.toDegrees(cartographic.longitude).toFixed(5);
+            const latitude = CesiumMath.toDegrees(cartographic.latitude).toFixed(5);
+            console.log(`经度: ${longitude}, 纬度: ${latitude}`);
+        }
+    }, ScreenSpaceEventType.MOUSE_MOVE);
+
+    // 飞向点实体
+/*     cesiumViewer.camera.flyTo({
+        destination: pointEntity.position.getValue(JulianDate.now()),
+        duration: 6.0
+    });
+     */
 })
 
 

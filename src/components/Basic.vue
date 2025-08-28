@@ -24,14 +24,15 @@ onMounted(  ()=>{
     const position = Cartesian3.fromDegrees(109.013896, 34.209865, 1000)
 
     const orientation = {
-        heading: CesiumMath.toRadians(0),
-        pitch: CesiumMath.toRadians(-90),
+        heading: CesiumMath.toRadians(0), // 方向角
+        pitch: CesiumMath.toRadians(-90), // 俯仰角
         roll: 0.0
     }
 
     cesiumViewer.camera.flyTo({
         destination: position,
-        orientation: orientation
+        orientation: orientation,
+        duration:5  // 飞行时间
     })
 
         // Add Cesium OSM Buildings, a global 3D buildings layer.
